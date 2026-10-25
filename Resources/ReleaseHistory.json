@@ -1,0 +1,70 @@
+{
+  "releases": [
+    {
+      "version": "0.3.0",
+      "build": "3",
+      "date": "2026-10-24",
+      "title": "Launch items and a menu bar monitor panel",
+      "summary": "Identifies login and background launch sources with controlled disable and restore, and redesigns the status bar live monitoring panel.",
+      "highlights": [
+        "New launch items page identifying user and shared LaunchAgents, LaunchDaemons, and the current user's visible login and background tasks, showing source, launch conditions and state.",
+        "Supports disabling qualifying user launch configurations after confirmation, keeping integrity-checked restorable backups; running tasks are not killed and new configurations at the restore location are never overwritten.",
+        "System-managed login items and background tasks link to the native System Settings; items that cannot be managed directly state why.",
+        "The status bar menu upgrades to a dark graphite frosted monitoring panel with rounded segments, hairline strokes and teal data bars, offering Overview and Processes views.",
+        "The panel shows CPU, memory, disk, network, real trend charts and top consumers, with pause, resume, open main window and settings.",
+        "The status bar label gains a monospace CPU readout; the panel reuses existing sampling with no separate timers or duplicate collection."
+      ],
+      "notes": [
+        "Disable and restore only run after explicit confirmation; existing launch items are never changed automatically.",
+        "Launch-at-login, background and on-demand services are different things; an enabled state does not mean the process is currently running.",
+        "No privilege escalation and no resets of the background tasks database; system or admin-managed items must be handled via System Settings or their owning app.",
+        "No online update source is configured yet; this release still uses the local build, install and distribution flow."
+      ]
+    },
+    {
+      "version": "0.2.0",
+      "build": "2",
+      "date": "2026-10-23",
+      "title": "Browser diagnostics, version history and local install",
+      "summary": "Adds instance diagnostics and controlled exit for AI automation browsers, plus version, update history and local installation.",
+      "highlights": [
+        "New browser diagnostics: reads real launch arguments and identifies automation instances by process tree and isolated profile directory, showing launch source, headless flag, executable path and an RSS estimate.",
+        "Supports confirmed per-instance exit with a read-back of survivors; after the main process exits, surviving renderers whose identity still matches the original snapshot can be explicitly force-quit. Everyday browsers and Electron apps are protected as whole groups.",
+        "Settings gains version and update info: current version, build number, build time, source summary, running path and installed state.",
+        "Full local update history preserving the first release notes; the in-app history and CHANGELOG.md are generated from the same data and validated.",
+        "Info.plist is the version source of truth; the build validates history records and stamps actual build time, source SHA-256 and Git source state.",
+        "Standard installation to /Applications/cduyzhProcessTool.app: the staged bundle is verified first, then swapped atomically, with a compressed backup of the old version and restore on failure.",
+        "Checks for running instances of this product before installing and refuses to overwrite by default; --quit-running explicitly stops processes verified by executable path.",
+        "Local release packaging script producing versioned ZIPs, SHA-256 checksums and release metadata."
+      ],
+      "notes": [
+        "Being headless, long-running, parented to PID 1, or located in a temp directory does not alone prove a leftover process. Nothing is killed automatically and no browser data is deleted.",
+        "No online update source is configured yet; this release never contacts an update server and never claims to be remotely up to date.",
+        "Local builds are ad-hoc signed without Developer ID signing or Apple notarization.",
+        "0.1.0 and 0.2.0 are local development release records, not public releases."
+      ]
+    },
+    {
+      "version": "0.1.0",
+      "build": "1",
+      "date": "2026-10-23",
+      "title": "First local development release",
+      "summary": "Presents processes, resources and ports in a native macOS interface, prioritizing the UI and icon design with real local sampling.",
+      "highlights": [
+        "A native three-column interface in mist white with teal accents: sidebar navigation, resource cards, process list and detail panel.",
+        "Original chip-pulse app icon, multi-size ICNS, and a unified SF Symbols icon language.",
+        "CPU, memory, startup disk capacity, physical network throughput and real sampled trends, with pause and manual refresh.",
+        "Process search, sorting, app/background filters, persistent watch by executable path, path copy and Finder reveal.",
+        "On-demand TCP LISTEN and UDP bound endpoints with search, sorting, copy and jump to the owning process.",
+        "Confirmed quit and force quit that re-verify user, PID and microsecond-precision start time before acting, protecting system, self and other users' processes.",
+        "CSV export of the current list, menu bar resource status, sampling interval and light/dark appearance settings.",
+        "Dependency-free SwiftPM build and local app packaging with a fixed Bundle ID."
+      ],
+      "notes": [
+        "Requires macOS 14 or later; process and port details are limited by local system permissions.",
+        "Process CPU treats one logical core as 100%; total CPU is normalized across all cores; process memory is RSS.",
+        "The first CPU and network sample needs a second sample for deltas; the disk card shows capacity, not disk I/O."
+      ]
+    }
+  ]
+}
